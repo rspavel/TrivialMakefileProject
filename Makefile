@@ -3,16 +3,24 @@ MPICXX=mpic++
 
 USE_MPI=
 
-ifeq ($(USE_MPI), YES)
-	COMPILER=$(MPICXX)
+PREFIX=.
+COMPILER=
+
+CP=cp
+
+ifeq (${USE_MPI}, YES)
+	COMPILER=${MPICXX}
 else
-	COMPILER=$(CXX)
+	COMPILER=${CXX}
 endif
 
 all: helloW
 
 helloW: helloW.cpp
-	$(COMPILER) helloW.cpp -o helloW
+	${COMPILER} helloW.cpp -o helloW
+
+install: helloW
+	${CP} helloW ${PREFIX}/helloW
 
 clean:
 	rm -f ./helloW
